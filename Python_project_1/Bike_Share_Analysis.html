@@ -12247,14 +12247,14 @@ OrderedDict([(&#39;duration&#39;, &#39;13.983333333333333&#39;),
 <p><a id='statistics'></a></p>
 <h3 id="Statistics">Statistics<a class="anchor-link" href="#Statistics">&#182;</a></h3><p>First, let's compute some basic counts. The first cell below contains a function that uses the csv module to iterate through a provided data file, returning the number of trips made by subscribers and customers. The second cell runs this function on the example Bay Area data in the <code>/examples/</code> folder. Modify the cells to answer the question below.</p>
 <p><strong>Question 4a</strong>: Which city has the highest number of trips? Which city has the highest proportion of trips made by subscribers? Which city has the highest proportion of trips made by short-term customers?</p>
-<p><strong>Answer</strong>: NYC, NYC, Chicago</p>
+<p><strong>Answer</strong>: NYC has the highest number of trips and the highest proportion of trips made by subscribers while Chicago has the highest proportion of trips made by short term customers</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">number_of_trips</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
@@ -12291,7 +12291,7 @@ OrderedDict([(&#39;duration&#39;, &#39;13.983333333333333&#39;),
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## Modify this and the previous cell to answer Question 4a. Remember to run ##</span>
@@ -12313,7 +12313,7 @@ OrderedDict([(&#39;duration&#39;, &#39;13.983333333333333&#39;),
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">w_total</span><span class="p">,</span> <span class="n">c_total</span><span class="p">,</span> <span class="n">n_total</span><span class="p">))</span>
@@ -12363,7 +12363,7 @@ OrderedDict([(&#39;duration&#39;, &#39;13.983333333333333&#39;),
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## Use this and additional cells to answer Question 4b.                 ##</span>
@@ -12411,7 +12411,7 @@ OrderedDict([(&#39;duration&#39;, &#39;13.983333333333333&#39;),
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">avg_trip_time</span><span class="p">,</span> <span class="n">per_long</span> <span class="o">=</span> <span class="n">avg_trip_length</span><span class="p">(</span><span class="n">washington_df</span><span class="p">)</span>
@@ -12443,7 +12443,7 @@ OrderedDict([(&#39;duration&#39;, &#39;13.983333333333333&#39;),
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">avg_trip_time</span><span class="p">,</span> <span class="n">per_long</span> <span class="o">=</span> <span class="n">avg_trip_length</span><span class="p">(</span><span class="n">chicago_df</span><span class="p">)</span>
@@ -12475,7 +12475,7 @@ OrderedDict([(&#39;duration&#39;, &#39;13.983333333333333&#39;),
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">avg_trip_time</span><span class="p">,</span> <span class="n">per_long</span> <span class="o">=</span> <span class="n">avg_trip_length</span><span class="p">(</span><span class="n">nyc_df</span><span class="p">)</span>
@@ -12517,7 +12517,7 @@ OrderedDict([(&#39;duration&#39;, &#39;13.983333333333333&#39;),
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## Use this and additional cells to answer Question 4c. If you have    ##</span>
@@ -12570,7 +12570,7 @@ OrderedDict([(&#39;duration&#39;, &#39;13.983333333333333&#39;),
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">ans</span><span class="p">,</span> <span class="n">val</span> <span class="o">=</span> <span class="n">user_rides</span><span class="p">(</span><span class="n">nyc_df</span><span class="p">)</span>
@@ -12612,7 +12612,7 @@ OrderedDict([(&#39;duration&#39;, &#39;13.983333333333333&#39;),
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># load library</span>
@@ -12674,7 +12674,7 @@ OrderedDict([(&#39;duration&#39;, &#39;13.983333333333333&#39;),
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## Use this and additional cells to collect all of the trip times as a list ##</span>
@@ -12735,7 +12735,7 @@ OrderedDict([(&#39;duration&#39;, &#39;13.983333333333333&#39;),
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## Use this and additional cells to answer Question 5. ##</span>
@@ -12837,7 +12837,7 @@ Of the weekday rides, Subscribers take a major proportion of the rides.</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[44]:</div>
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">ride_relationships</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
@@ -12943,7 +12943,7 @@ Of the weekday rides, Subscribers take a major proportion of the rides.</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[45]:</div>
+<div class="prompt input_prompt">In&nbsp;[23]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">ride_relationships</span><span class="p">(</span><span class="n">nyc_df</span><span class="p">)</span>
@@ -12997,7 +12997,7 @@ Average Ride Time over Weekends : 18.8 mins
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[46]:</div>
+<div class="prompt input_prompt">In&nbsp;[24]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">ride_relationships</span><span class="p">(</span><span class="n">chicago_df</span><span class="p">)</span>
@@ -13051,7 +13051,7 @@ Average Ride Time over Weekends : 21 mins
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[47]:</div>
+<div class="prompt input_prompt">In&nbsp;[25]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">ride_relationships</span><span class="p">(</span><span class="n">washington_df</span><span class="p">)</span>
@@ -13114,7 +13114,7 @@ Average Ride Time over Weekends : 24.4 mins
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[48]:</div>
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">ride_relationships_per_day</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
@@ -13194,7 +13194,7 @@ Average Ride Time over Weekends : 24.4 mins
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[49]:</div>
+<div class="prompt input_prompt">In&nbsp;[27]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">ride_relationships_per_day</span><span class="p">(</span><span class="n">nyc_df</span><span class="p">)</span>
@@ -13229,7 +13229,7 @@ Average Ride Time over Weekends : 24.4 mins
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[50]:</div>
+<div class="prompt input_prompt">In&nbsp;[28]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">ride_relationships_per_day</span><span class="p">(</span><span class="n">chicago_df</span><span class="p">)</span>
@@ -13264,7 +13264,7 @@ Average Ride Time over Weekends : 24.4 mins
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[51]:</div>
+<div class="prompt input_prompt">In&nbsp;[29]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">ride_relationships_per_day</span><span class="p">(</span><span class="n">washington_df</span><span class="p">)</span>
@@ -13304,7 +13304,8 @@ Average Ride Time over Weekends : 24.4 mins
 <p><a id='conclusions'></a></p>
 <h2 id="Conclusions">Conclusions<a class="anchor-link" href="#Conclusions">&#182;</a></h2><p>Congratulations on completing the project! This is only a sampling of the data analysis process: from generating questions, wrangling the data, and to exploring the data. Normally, at this point in the data analysis process, you might want to draw conclusions about the data by performing a statistical test or fitting the data to a model for making predictions. There are also a lot of potential analyses that could be performed on the data which are not possible with only the data provided. For example, detailed location data has not been investigated. Where are the most commonly used docks? What are the most common routes? As another example, weather has potential to have a large impact on daily ridership. How much is ridership impacted when there is rain or snow? Are subscribers or customers affected more by changes in weather?</p>
 <p><strong>Question 7</strong>: Putting the bike share data aside, think of a topic or field of interest where you would like to be able to apply the techniques of data science. What would you like to be able to learn from your chosen subject?</p>
-<p><strong>Answer</strong>: Medical Data, Business Data</p>
+<p><strong>Answer</strong>: Medical Data: I want to be able to learn how data driven decisions can change or speed up diagnoses and the process of diagnoses
+Business Data: Data driven decisions in business are not new. I want to learn how to apply those decisions to come up with business strategies which give a better output.</p>
 <blockquote><p><strong>Tip</strong>: If we want to share the results of our analysis with others, we aren't limited to giving them a copy of the jupyter Notebook (.ipynb) file. We can also export the Notebook output in a form that can be opened even for those without Python installed. From the <strong>File</strong> menu in the upper left, go to the <strong>Download as</strong> submenu. You can then choose a different format that can be viewed more generally, such as HTML (.html) or
 PDF (.pdf). You may need additional packages or software to perform these exports.</p>
 <p>If you are working on this project via the Project Notebook page in the classroom, you can also submit this project directly from the workspace. <strong>Before you do that</strong>, you should save an HTML copy of the completed project to the workspace by running the code cell below. If it worked correctly, the output code should be a 0, and if you click on the jupyter icon in the upper left, you should see your .html document in the workspace directory. Alternatively, you can download the .html copy of your report following the steps in the previous paragraph, then <em>upload</em> the report to the directory (by clicking the jupyter icon).</p>
@@ -13316,7 +13317,7 @@ PDF (.pdf). You may need additional packages or software to perform these export
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[52]:</div>
+<div class="prompt input_prompt">In&nbsp;[30]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">subprocess</span> <span class="k">import</span> <span class="n">call</span>
@@ -13333,7 +13334,7 @@ PDF (.pdf). You may need additional packages or software to perform these export
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[52]:</div>
+<div class="prompt output_prompt">Out[30]:</div>
 
 
 
