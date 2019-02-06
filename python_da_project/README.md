@@ -5,5 +5,5 @@ Libraries Used: Pandas, Matplotlib.
 
 Data was taken from [Kaggle](https://www.kaggle.com/joniarroba/noshowappointments/home).
 
-..* Language : Python
-..* Libraries Used: Numpy, Pandas, Matplotlib
+* Language : Python
+* Libraries Used: Numpy, Pandas, Matplotlib
