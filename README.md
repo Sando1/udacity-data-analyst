@@ -20,7 +20,9 @@ Following are the projects wihtin it:
 5. [Test A Perceptual Phenonmenon](https://github.com/Sando1/udacity-data-analyst/tree/master/test_a_phenonmenon) : Inferential Statistics Test Project, Analysing the Stroop Effect.
 * Language : Python
 * Libraries Used: Pandas, Seaborn, Scipy
-6. Exploratory Data Analysis
+6. [Exploratory Data Analysis](https://github.com/Sando1/udacity-data-analyst/tree/master/eda_r_project):
+* Language : R
+* Libraries Used : ggplot2, grid extra and tidy verse
 7. [Data Wrangling](https://github.com/Sando1/udacity-data-analyst/tree/master/data_wrangling_project)
 * Language : Python
 * Libraries Used: Pandas, Matplolib, Tweepy, Requests, JSON
@@ -42,3 +44,6 @@ Other Projects:
 5. [Data Wrangling Hospital Patients](https://github.com/Sando1/udacity-data-analyst/tree/master/data_wrangling_case_study)
 * Language : Python
 * Libraries Used: Numpy, Pandas, Matplotlib
+6. [Explolatory Data Analysis Case Study](https://github.com/Sando1/udacity-data-analyst/tree/master/eda_r)
+* Language : R
+* Libraries Used: ggplot2, tidyverse and gridextra

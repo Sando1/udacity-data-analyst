@@ -1,15 +1,23 @@
 ---
 title : "Explolatory Data Analysis with R"
-output : html_document
----
+author: "Sakina Fakhruddin"
+output: 
+  html_document:
+    theme       : cosmo            
+    highlight   : haddock     
+    toc         : true        
+    toc_depth   : 3
+    toc_float   : true
+    df_print    : paged
 
+---
 ## Part of Udacity Data Analyst Nanodegree 
 ### Introduction
 For the EDA project, the data set is the Prosper Loan Data. This data set contains 113,937 loans with 81 variables on each loan, including loan amount, borrower rate (or interest rate), current loan status, borrower income, borrower employment status, borrower credit history, and the latest payment information. The proper variable definations for the data can be found  [here](https://docs.google.com/spreadsheets/d/1gDyi_L4UvIrLTEC6Wri5nbaMmkGmLQBk-Yx3z0XDEtI/edit#gid=0).
 
-```{r}
-#supress warnings 
-oldw <- getOption("warn")
+```{r echo=FALSE,warning=FALSE,message=FALSE, Load_Data}
+# knitr: Suppress code/messages/warnings 
+knitr::opts_chunk$set( echo=FALSE,warning=FALSE,message=FALSE)
 
 #load all the libraries needed. 
 library(rmarkdown)
@@ -33,7 +41,7 @@ Let's start this exploration with loading the data and saving the data into a da
 ```{r}
 #load dataset
 df <- read.csv('prosperLoanData.csv', na.strings=c("NA", "NULL",""))
-#check dataset
+# check 
 head(df)
 ```
 ```{r}
@@ -43,6 +51,8 @@ nrow(df)
 Considering that this data has 81 columns and 113937 rows, we can easily choose a chunk of this data to do analysis on. I shall start with dividing the data set into 2 considering the scenario pre-2009 and post-2009. This is also how the data is divided as columns such as the CreditGrade are only applicable for loans pre-July 2009. Thus, this data obviously tells a story of the pre-and-post 2009 scenarios and that is what I shall try to explore in this analysis.
 
 Giving a little background on my decision to divide the data is important. From 2007 to mid 2009, the Great Financial Crisis occured followed by the Great Recession. The precipitating factor for the this Crisis was a high default rate in the United States subprime home mortgage sector i.e home loans. Critics argued that credit rating agencies and investors failed to accurately price the risk involved with mortgage-related financial products, and that governments did not adjust their regulatory practices to address 21st-century financial markets. 
+
+Moreover, accouding to [Wikipedia](https://en.wikipedia.org/wiki/Prosper_Marketplace), on November 24, 2008, the SEC found Prosper to be in violation of the Securities Act of 1933. As a result of these findings, the SEC imposed a cease and desist order on Prosper. In July 2009, Prosper reopened their website for lending ("investing") and borrowing after having obtained SEC registration for its loans ("notes"). After the relaunch, bidding on loans was restricted to residents of 28 U.S. states and the District of Columbia. Borrowers may reside in any of 47 states, with residents of three states (Iowa, Maine, and North Dakota) not permitted to borrow through Prosper. This also highlights the divide in the data. 
 
 Thus, I will divide the data set into the pre and post financial crisis data set to get an accurate depection of the differences, specially, the credit grade and the numerous columns such as prosper score found only after 2009. 
 
@@ -75,7 +85,7 @@ na_count
 So there is an obvious difference in the loan data pre-2009 and post-2009. For starters, the number of rows in each set is quite different. I shall have to make use of ratios and percentages to do my analysis. 
 
 ### Analysis 
-#### Category of Loan
+#### Categories of Loan
 I want to see if there was a difference pre or post 2009 for which the loans were taken. Considering this is a discrete variable a bar chart would be a good choice for this type of analysis. 
 ```{r}
 table(pre_df$ListingCategory..numeric.)
@@ -171,29 +181,29 @@ There is a very little change in the trend of occupations of borrowers before an
   post_df.occupation <- tally_occupation(post_df, col)
   
   p1 <- ggplot(data = pre_df.occupation, 
-         aes(x = Occupation, y = n/sum(n), fill = new) ) + 
+         aes(x = Occupation, y = n/sum(n), fill = as.factor(new)) ) + 
     geom_bar(stat="identity", na.rm = TRUE) +
     theme(axis.text.x = element_text(angle = 90)) +
     ggtitle('Top Pre Crisis Occupations')+
     ylab("Count") +
     xlab(NULL) +
-    scale_y_continuous(labels=scales::percent, limits=c(0,0.35)) + 
-    theme(legend.position = "none")
+    scale_y_continuous(labels=scales::percent, limits=c(0,0.35)) 
+    
   
  p2 <- ggplot(post_df.occupation, 
-        aes(x = Occupation, y = n/sum(n), fill = new) ) + 
+        aes(x = Occupation, y = n/sum(n), fill = as.factor(new)) ) + 
     geom_bar(stat="identity", na.rm = TRUE) +
     theme(axis.text.x = element_text(angle = 90)) +
     ggtitle('Top Post Crisis Occupations')+
     ylab(NULL) +
     xlab(NULL) +
-    scale_y_continuous(labels=scales::percent, limits=c(0,0.35))+
-  theme(axis.title.y=element_blank(),
-        axis.text.y=element_blank(),
-        axis.ticks.y=element_blank())
-  
-  grid.arrange(p1,p2,ncol=2)
+    scale_y_continuous(labels=scales::percent, limits=c(0,0.35))
+    
+ggarrange(p1, p2, ncol=2, common.legend = TRUE, legend="bottom")
+#annotate_figure(figure,
+ #               top = text_grob("Top Pre Crisis and Post Crisis Occupations", color = "Black", face = "bold"))
 ```
+
 This is where we see the change in the trends of Loans before and after the crisis. 
 * Before the crisis, a very small percentage of the loans were debt consolidation loans, with professionals have about 5% of all loans be debt consolidation loans. 
 * After the the crisis, we see a majority of the loans are debt consolidation loans in every occupation. Taking the professional category only, there is an increase from 5% to 21% showing how most of the loans after crisis were debt consolidation loans. From the categories graph we see that almost 60% of the total loans post crisis were Debt Consolidation loans.  
@@ -210,8 +220,9 @@ Heat Map plotting has been leanrt from [here](https://stackoverflow.com/question
   head(post_df$region)
 ```
 
-```{r}
-  make_df_merged <- function(df_in){
+```{r, fig.width=10, fig.height=8}
+  
+make_df_merged <- function(df_in){
      #tally and merge to get long and lattitude
     df_merge <- df_in %>%
        filter(!is.na(region)) %>%
@@ -241,19 +252,21 @@ Heat Map plotting has been leanrt from [here](https://stackoverflow.com/question
  ggplot(pre_df_geo , aes(x = long, y = lat)) +
   geom_polygon(aes(group = group, fill = mean))+
   geom_text(data=snames, aes(long, lat, label=mean),colour='white', check_overlap = TRUE)+
-   ggtitle('Pre Crisis Mean Loan Amount By State')
+  ggtitle('Pre Crisis Mean Loan Amount By State') +
+  theme(panel.background = element_rect(fill = "darkgrey"))
 ```
 The highest mean amount borrowed is by one of the smallest states i.e New Jersy while the rest of the states seem to have similar mean amounts borrowed
 
-```{r}
+```{r, fig.width=10, fig.height=8}
  ggplot(pre_df_geo , aes(x = long, y = lat)) +
   geom_polygon(aes(group = group, fill = n))+
   geom_text(data=snames, aes(long, lat, label=n),colour='white', check_overlap = TRUE)+
-  ggtitle('Pre Crisis Number of Loans By State')
+  ggtitle('Pre Crisis Number of Loans By State')+
+  theme(panel.background = element_rect(fill = "darkgrey"))
 ```
 By the number of loans asked for, the California seems to have the highest number. New Jersey, with its high mean amount seems to be down the ladder with its low number of loan counts. 
 
-```{r}
+```{r, fig.width=10, fig.height=8}
   df_merge <- make_df_merged(post_df)
   post_df_geo <- state_merged_df(df_merge,states) 
   snames <- get_names(df_merge, states)
@@ -261,36 +274,41 @@ By the number of loans asked for, the California seems to have the highest numbe
   ggplot(post_df_geo , aes(x = long, y = lat)) + 
     geom_polygon(aes(group = group, fill = mean))+ 
     geom_text(data=snames, aes(long, lat, label=mean),colour='white', check_overlap = TRUE)+
-    ggtitle('Post Crisis Mean Loan Amount By State')
+    ggtitle('Post Crisis Mean Loan Amount By State') +
+  theme(panel.background = element_rect(fill = "darkgrey"))
 ```
 We see that many states have higher mean loan amounts as compared to before and even each other because there are many more lighter blues than before.
 
-```{r}
+```{r, fig.width=10, fig.height=8}
  ggplot(post_df_geo , aes(x = long, y = lat)) +
   geom_polygon(aes(group = group, fill = n))+
   geom_text(data=snames, aes(long, lat, label=n),colour='white', check_overlap = TRUE)+
-  ggtitle('Post Crisis Number of Loan By State')
+  ggtitle('Post Crisis Number of Loan By State') +
+  theme(panel.background = element_rect(fill = "darkgrey"))
 ```
 However, the number of loans by state seem to follow a similar patter as before with California leading the way in the number of loans after the crisis even though the mean loan amount was less.
 
 #### Income Range Vs Borrower Rate 
 
-```{r}
+```{r, fig.width=8, fig.height=8}
 p1 <- ggplot(data = pre_df, aes(x = StatedMonthlyIncome*12, y = BorrowerRate, color=IsBorrowerHomeowner)) +
  geom_point(stat="identity", alpha = 1/10, size = 0.75,  na.rm = TRUE) +
  scale_x_continuous(limits=c(min(pre_df$StatedMonthlyIncome*12), quantile(pre_df$StatedMonthlyIncome*12, 0.99))) +
  xlab(NULL) +
+ guides(color=guide_legend(override.aes = list(alpha = 1))) +
  ggtitle('Pre Crisis Income Vs Borrower Rate')
 
 p2 <- ggplot(data = post_df, aes(x = StatedMonthlyIncome*12, y = BorrowerRate, color=IsBorrowerHomeowner)) +
  geom_point(stat="identity", alpha = 1/10, size = 0.75,  na.rm = TRUE) +
  xlab("Yearly Income of the Borrower") +
  scale_x_continuous(limits=c(min(pre_df$StatedMonthlyIncome*12), quantile(pre_df$StatedMonthlyIncome*12, 0.99))) +
+ guides(color=guide_legend(override.aes = list(alpha = 1)))+
  ggtitle('Post Crisis Income Vs Borrower Rate')
-
+ 
 ggarrange(p1, p2, nrow=2, common.legend = TRUE, legend="bottom")
 
 ```
+
 Common legend code from [here](https://stackoverflow.com/questions/13649473/add-a-common-legend-for-combined-ggplots)
 
 Income range was given in a range formats, hence I chose the stated monthly income and multiplied it by 12 to get yearly income, which is much easier to play aroud with. 
@@ -305,6 +323,7 @@ ggplot(data = pre_df, aes(x = StatedMonthlyIncome*12, y = LoanOriginalAmount, co
  xlab("Yearly Income of the Borrower") +
  scale_x_continuous(limits=c(min(pre_df$StatedMonthlyIncome*12), quantile(pre_df$StatedMonthlyIncome*12, 0.99))) +
  scale_fill_brewer(type = 'qual') +
+ guides(color=guide_legend(override.aes = list(alpha = 1))) +
  ggtitle('Yearly Income Range Vs Loan Amount Before the Crisis')
 
 ```
@@ -314,6 +333,7 @@ ggplot(data = post_df, aes(x = StatedMonthlyIncome*12, y = LoanOriginalAmount, c
  xlab("Yearly Income of the Borrower") +
  scale_x_continuous(limits=c(min(pre_df$StatedMonthlyIncome*12), quantile(pre_df$StatedMonthlyIncome*12, 0.99))) +
  scale_fill_brewer(type = 'qual') +
+ guides(color=guide_legend(override.aes = list(alpha = 1))) +
  ggtitle('Yearly Income Range Vs Loan Amount After the Crisis')
 
 ```
@@ -324,29 +344,30 @@ Since the credit Grade and the Prosper Rating are the same, only categorized bef
 #### Estimated Loss and Estiated Return based on Debt to Income Ration showing ProsperRating
 ```{r}
 ggplot(data = post_df, aes(x = EstimatedLoss, y = DebtToIncomeRatio, color=ProsperRating..Alpha.)) +
-  geom_point(stat="identity", alpha = 1/10 , size = 0.75,  na.rm = TRUE) +
+ geom_point(stat="identity", alpha = 1/10 , size = 0.75,  na.rm = TRUE) +
  ggtitle('Post Crisis Debt to Loss Comparision of Loans')+ 
-    theme(legend.position = "none")
+ guides(color=guide_legend(override.aes = list(alpha = 1))) 
 ```
 ```{r}
 ggplot(data = subset(post_df, EstimatedReturn > 0), aes(x = EstimatedReturn, y = DebtToIncomeRatio, color=ProsperRating..Alpha.)) +
     geom_point(stat="identity", alpha = 1/10 , size = 0.75,  na.rm = TRUE) +
     ggtitle('Post Crisis Debt to Return Comparision of Loans')+ 
-    theme(legend.position = "none")
+    guides(color=guide_legend(override.aes = list(alpha = 1))) 
 
 ```
 ```{r}
 ggplot(data = post_df, aes(x = EstimatedEffectiveYield, y = EstimatedLoss, color=ProsperRating..Alpha.)) +
     geom_point(stat="identity", alpha = 1/10 , size = 0.75,  na.rm = TRUE) +
     ggtitle('Yeild Vs Estimated Loss')+ 
-    theme(legend.position = "none")
+    guides(color=guide_legend(override.aes = list(alpha = 1))) 
 ```
 ```{r}
 ggplot(data = subset(post_df, EstimatedReturn > 0), aes(x = EstimatedEffectiveYield, y = EstimatedReturn, color=ProsperRating..Alpha.)) +
     geom_point(stat="identity", alpha = 1/10 , size = 0.75,  na.rm = TRUE) +
     ggtitle('Yeild Vs Estimated Return')+ 
-    theme(legend.position = "none")
+    guides(color=guide_legend(override.aes = list(alpha = 1))) 
 ```
+
 Now we can clearly see what the Prosper rating after the crisis was dependant on i.e Estimated Loss. The more the loss that was estimated, the worse your Prosper Rating would be. Plots 1 and 3 are important in showing this relationship, where the color changes with the change of the Estimated Loss. This highlights that the rating was based on the Estimated Loss of that could be incurred from the borrower. 
 
 I also checked the relationship with the Estimated Return column, but it is clearly seen that the there is no connection to the Rating with the return with the coloured dots all over the graph. 
@@ -367,6 +388,7 @@ paste((count(subset(df, df$IsBorrowerHomeowner == 'True' & df$ListingCategory..n
 ```{r}
 paste((count(subset(df, df$ListingCategory..numeric. == 1)) / count(df))*100, "percent of the borrowers have taken out debt consolidations loans") 
 ```
+
 I did not think there was a need to make a visual to answer this question because of its obvious nature. I am looking at numbers and thus, I can see that loans for homeowners are there and many of the homeowners have more than one loan, thus there is a need to take out debt consolidation loans.  
 
 Let's look at the actual loans and what they are affected by: 
@@ -385,6 +407,7 @@ summary(post_df$LoanOriginalAmount)
     xlab = "Pre Crisis and Post Crisis",
     ylab = "Amounts")
 ```
+
 Before the crisis, there loan amounts taken are less than after the crisis.  While the base loan amount is the same for both, we see a higher range after the crisis, with a higher mean and median. 
 
 The simplist plot i.e the boxplot also highlights this aspect with the post crisis mean and median being higher than the pre- crisis mode and median. 
@@ -403,6 +426,7 @@ The simplist plot i.e the boxplot also highlights this aspect with the post cris
         ylab = "Income",
         outline=FALSE)
 ```
+
 It seems that with the higher loan amounts of the borrowers, their income range has also increased after the crisis with the outliers so high, that I could not see the actual boxplot. 
 It is after plotting the boxplot without the outliers do I see the trend that the income after the crisis is higher. This can be associated with the higer cost of living after the crisis and with the increase of the basic income needed to live along with inflation. All in all $1 in 2008 → $1.17 in 2018  showing how the cost of living has increased with the increase in income. This can also give reason to the higher loan prices.
 
@@ -414,7 +438,8 @@ p1 <-  ggplot(data = pre_df) +
     geom_point( aes(x = MonthlyLoanPayment, y = ProsperPaymentsOneMonthPlusLate), stat="identity", alpha = 1/5, size = 0.75, color = 'green') +
     ylab("Count") +
     xlab('Loan Payment Amount') +
-    ggtitle('Pre Crisis Comparision of Loan Payments')
+    ggtitle('Pre Crisis Loan Payment Times') +
+    guides(color=guide_legend(override.aes = list(alpha = 1))) 
 
 p2 <- ggplot(data = post_df) +
     geom_point( aes(x = MonthlyLoanPayment, y = OnTimeProsperPayments), stat="identity", alpha = 1/5, size = 0.75, color='blue') +
@@ -422,11 +447,13 @@ p2 <- ggplot(data = post_df) +
     geom_point( aes(x = MonthlyLoanPayment, y = ProsperPaymentsOneMonthPlusLate), stat="identity", alpha = 1/5, size = 0.75, color = 'green') +
     ylab("Count") +
     xlab('Loan Payment Amount') +
-    ggtitle('Post Crisis Comparision of Loan Payments')
+    ggtitle('Post Crisis Loan Payment')+
+    guides(color=guide_legend(override.aes = list(alpha = 1))) 
 
 grid.arrange(p1, p2, ncol=2)
 
 ```
+
 Apart from the lesser number of loans taken before the crisis, we see that a very small percentage of the loan payments were less than a month late and almost none of them were more than one month late before the crisis. After the crisis though, we see that a significant percentage of loan payments were late and many even more than one month late. 
 
 #### Time Vs Loans 
@@ -442,6 +469,7 @@ Apart from the lesser number of loans taken before the crisis, we see that a ver
     ylab("Count") +
     ggtitle('Mean and Median Loan Amounts')
 ```
+
 For this duration, the median is less than the mean. 
 An interesting thing to note is that there is a massive drop from the last 2008 quater to the mid 2009. These are the years of the Great Financial Crisis and this graph proves that the Loan trends were affected significantly by the Great Crisis of 2008. 
 
@@ -449,77 +477,70 @@ An interesting thing to note is that there is a massive drop from the last 2008 
 
 The aim for the final plots is to combine a 2-4 plots into one to form a summary of the trends I have tried to highlight during the analysis. 
 
-## Comparision Of Debt Consolidation Loans Before and After The Crisis. 
+#### Comparision Of Debt Consolidation Loans Before and After The Crisis. 
 Knowing that the debt consolidation loans make about 51.17% of the total borrowers, it is important to know what the demographics of these borrowers are. Their occupations is what I have plotted. It is also important to segament the data into before and after the crisis to highlight the drastic change in loan taking. Where debt consolidation was a minor part of the total loan categories before the Crisis, it became the number 1 reason for taking loans after the Crisis. 
 
-```{r}
+```{r, fig.width=10, fig.height=8}
 #supress warnings 
-oldw <- getOption("warn")
-options(warn=-1)
-library(grid)
-
-pre_df.debt <- subset(pre_df, ListingCategory..numeric. == 1)
-post_df.debt <- subset(post_df, ListingCategory..numeric. == 1)
-
 p1 <- ggplot(data = pre_df.occupation, 
-       aes(x = Occupation, y = n/sum(n), fill = new) ) + 
-  geom_bar(stat="identity", na.rm = TRUE) +
-  theme(axis.text.x = element_text(angle = 90)) +
-  ggtitle('Top Pre Crisis Occupations')+
-  ylab("Count") +
-  xlab(NULL) +
-  scale_y_continuous(labels=scales::percent, limits=c(0,0.35)) + 
-  theme(legend.position = "none")
-
-p2 <- ggplot(post_df.occupation, 
-      aes(x = Occupation, y = n/sum(n), fill = new) ) + 
-  geom_bar(stat="identity", na.rm = TRUE) +
-  theme(axis.text.x = element_text(angle = 90)) +
-  ggtitle('Top Post Crisis Occupations')+
-  ylab(NULL) +
-  xlab(NULL) +
-  scale_y_continuous(labels=scales::percent, limits=c(0,0.35))+
-  theme(axis.title.y=element_blank(),
-        axis.text.y=element_blank(),
-        axis.ticks.y=element_blank())
-lay <- rbind(c(1,1,1,2,2,2),
-             c(1,1,1,2,2,2))
-
-grid.arrange(p1,p2, layout_matrix = lay)
+         aes(x = Occupation, y = n/sum(n), fill = as.factor(new)) ) + 
+    geom_bar(stat="identity", na.rm = TRUE) +
+    theme(axis.text.x = element_text(angle = 90)) +
+    ggtitle('Top Pre Crisis Occupations')+
+    ylab("Count") +
+    xlab(NULL) +
+    scale_y_continuous(labels=scales::percent, limits=c(0,0.35)) 
+    
+  
+ p2 <- ggplot(post_df.occupation, 
+        aes(x = Occupation, y = n/sum(n), fill = as.factor(new)) ) + 
+    geom_bar(stat="identity", na.rm = TRUE) +
+    theme(axis.text.x = element_text(angle = 90)) +
+    ggtitle('Top Post Crisis Occupations')+
+    ylab(NULL) +
+    xlab(NULL) +
+    scale_y_continuous(labels=scales::percent, limits=c(0,0.35))
+    
+ggarrange(p1, p2, ncol=2, common.legend = TRUE, legend="bottom")
 
 ```
+
 As seen from the graph above, where the light blue color highlights are percentage of debt consolidation loans while the dark blue color highlights the other reasons for taking loans, it can be seen wht debt consolidation makes up about 51% of the data. Prior to the crisis, there was no reason to take debt consoldation loans due to people's income level being at par with their loan debt. However, as mentioned before, a debt consolidation loan combines all other loans into one big loan with low interest so that an individual only has to pay one monthly payment. After the crisis it can be seen that the loan taking has completely switched, with the majority being debt consolidation loans and only a minority being loans for other purposes. It should be mentioned as I know from plotting the graph before, that after the crisis people started taking loans for luxury items as well such as a boat, motor cycle and vacations. In light of this information, it is still astonishing to see the proportion of debt consolidation loans over other loans. 
 
 Coming to the occupations of the people who are asking for the loans, it can be seen that loans are mostly given to people with an already steady and high income such as Analyst, or computer programmer or Executive. These people have the highest earning jobs and thus can proof their income and ability to pay back their loans. However, it is the professional category that has the maximum number of loans in pre-crisis and post crisis categories. 
 
-## Factors Affecting Prosper Rating (Applicable after July 2009)
+#### Factors Affecting Prosper Rating (Applicable after July 2009)
 Given the numerous facors given for the Prosper rating, I wanted to know which is the most important and what does the Prosper rating depend on. The data is majority after the crisis data i.e after July 2009 so I had enough data to make a conclusion. 
 
-```{r}
+```{r, fig.width=10, fig.height=8}
 p1 <- ggplot(data = post_df, aes(x = DebtToIncomeRatio, y = EstimatedLoss, color=ProsperRating..Alpha.)) +
       geom_point(stat="identity", alpha = 1/10 , size = 0.75,  na.rm = TRUE) +
-      theme(legend.position = "none")
+      guides(color=guide_legend(override.aes = list(alpha = 1))) 
+
 p2 <- ggplot(data = subset(post_df, EstimatedReturn > 0), aes(x = DebtToIncomeRatio, y = EstimatedReturn, color=ProsperRating..Alpha.)) +
       geom_point(stat="identity", alpha = 1/10 , size = 0.75,  na.rm = TRUE) +
-      theme(legend.position = "none")
+      guides(color=guide_legend(override.aes = list(alpha = 1))) 
+
 p3 <- ggplot(data = post_df, aes(x = EstimatedEffectiveYield, y = EstimatedLoss, color=ProsperRating..Alpha.)) +
       geom_point(stat="identity", alpha = 1/10 , size = 0.75,  na.rm = TRUE) +
-      theme(legend.position = "none")
+      guides(color=guide_legend(override.aes = list(alpha = 1))) 
+
 p4 <- ggplot(data = subset(post_df, EstimatedReturn > 0), aes(x = EstimatedEffectiveYield, y = EstimatedReturn, color=ProsperRating..Alpha.)) +
       geom_point(stat="identity", alpha = 1/10 , size = 0.75,  na.rm = TRUE) +
-      theme(legend.position = "none")
+      guides(color=guide_legend(override.aes = list(alpha = 1))) 
 
 figure <- ggarrange(p1, p2, p3, p4, ncol=2, nrow=2, common.legend = TRUE, legend="bottom")
 annotate_figure(figure,
                 top = text_grob("Factors Affecting Prosper Rating.", color = "Black", face = "bold"))
 ```
+
 From the given plot, which is an amalgamation of four plots which plots four different variables against each other, I can easily see that Propser Rating depends solely on Estimated Loss. The greater your estimated loss ratio, the worse your rating is given to be. Estimated loss is then calculated from a variety of different elements such as demographics (occupation, employement status, investors) and income (monthly income, other loans, number of delinquencies and amount delinquent)
 
 I can also safely say that Prosper rating is dependant on estimated loss due to the proper lines formed when plotted with Estimated Loss while there is no lines seen with the plots of Estimated Return. This is also highlighted with the 4th graph of Estimted return vs Estimated Effective Yeild. It is obvious the two variables are correlated. An increase in Estimated Return should also give you an increase in Estimated Effective Yeild. However, we see that the two are not lineraly related. There's a squared correlation. This is because of the Estimated Loss variablt which highlights how the Estimated Loss variable is vital in calculating the Prosper Rating. 
 
-## Comparisions of State Incomes with State Loans
+#### Comparisions of State Incomes with State Loans
 I wanted to check how state incomes are mapped with state loans and thus, I plotted the mean of the two giving me an indication of how the states handle debt. 
-```{r}
+```{r, fig.width=10, fig.height=8}
 states <- map_data("state")
 #change the abbreviations to state names
 df$region <- tolower(abbr2state(df$BorrowerState))
@@ -537,13 +558,17 @@ snames <- merge(snames, df_merge, by="region", all.x = TRUE)
 ggplot(df_geo , aes(x = long, y = lat)) +
   geom_polygon(aes(group = group, fill = meanIncome))+
   geom_text(data=snames, aes(long, lat, label = meanIncome),colour='white', check_overlap = TRUE)+
-  ggtitle('Mean Income Amount By State')
+  ggtitle('Mean Income Amount By State') +
+  theme(panel.background = element_rect(fill = "darkgrey"))
 
 ggplot(df_geo , aes(x = long, y = lat)) +
   geom_polygon(aes(group = group, fill = meanLoan))+
   geom_text(data=snames, aes(long, lat, label = meanLoan),colour='white', check_overlap = TRUE)+
-  ggtitle('Mean Loan Amount By State')
+  ggtitle('Mean Loan Amount By State') +
+  theme(panel.background = element_rect(fill = "darkgrey"))
+  
 ```
+
 [This](https://www.usgovernmentdebt.us/compare_state_debt) chart shows the recent debt per state in the US where California, Texas and NewYork have massive amounts of Debt. 
 
 The data given, only has Prosper oans till 2014 and thus, it is imporant to see the current world scenario. As mentioned before, the incomes and loan amounts have increased 10 fold after the crisis. In the chart, we see that the states with the highest average incomes are paying the least amounts of debt, while states such as California is which have low averge income are paying a high amount for their debt. This can show the start of the Dbet crisis that the world is not facing with more defaulters than on time paying individuals. 
