@@ -3,6 +3,9 @@ This repo holds all the projects done for the Udacity Data Analyst Nanodegree.
 
 This Nanodegree was awarded as part of the Bertelsmann Data Science Scholarship Program
 
+[Graduation Certificate](https://github.com/Sando1/udacity-data-analyst/blob/master/certificate.pdf)
+>>>>>>> 4d593ae485cb76b9a16cd3f0d76887f2d33d9e36
+
 Following are the projects wihtin it:
 1. [Weather Trends Exploration](https://github.com/Sando1/udacity-data-analyst/tree/master/Weather_Trends_Project): Create and explore one visual.
 * Program : Excel
@@ -27,7 +30,8 @@ Following are the projects wihtin it:
 * Language : Python
 * Libraries Used: Pandas, Matplolib, Tweepy, Requests, JSON
 * Write Up : [‘We Rate Dogs’ : Twitter Data Analysis](https://medium.com/@spetiwala0/we-rate-dogs-twitter-data-analysis-672e1a8903b4)
-8. Data Visualization
+8. [Data Visualization with Tableau](https://github.com/Sando1/udacity-data-analyst/tree/master/tableau_project)
+* [Tableau Public Story](https://public.tableau.com/profile/sakina7174#!/vizhome/ProsperData-Udacity/Story1?publish=yes)
 
 Other Projects:
 1. [Web Crawler](https://github.com/Sando1/udacity-data-analyst/tree/master/web_crawler)
