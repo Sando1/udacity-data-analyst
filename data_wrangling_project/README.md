@@ -1,6 +1,6 @@
 # Twitter Data Wrangling Project
 
- The Data Wrnagling Project was meant to challenge the learner in various ways:
+ The Data Wrangling Project was meant to challenge the learner in various ways:
  * Gather Data from various sources and in a variety of formats
  * Assess its quality and tidiness
  * Cleaning the data
