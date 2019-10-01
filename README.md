@@ -33,21 +33,3 @@ Following are the projects wihtin it:
 8. [Data Visualization with Tableau](https://github.com/Sando1/udacity-data-analyst/tree/master/tableau_project)
 * [Tableau Public Story](https://public.tableau.com/profile/sakina7174#!/vizhome/ProsperData-Udacity/Story1?publish=yes)
 
-Other Projects:
-1. [Web Crawler](https://github.com/Sando1/udacity-data-analyst/tree/master/web_crawler)
-* Language : Python
-2. [Analyzing Wine Quality](https://github.com/Sando1/udacity-data-analyst/tree/master/case_study_wine_quality)
-* Language : Python
-* Libraries Used: Numpy, Pandas, Matplotlib
-3. [A/B Testing Case Study](https://github.com/Sando1/udacity-data-analyst/tree/master/ab_testing)
-* Language : Python
-* Libraries Used: Pandas, Seaborn, Scipy
-4. [Bayes Rule](https://github.com/Sando1/udacity-data-analyst/tree/master/probability_bayes_rule)
-* Language : Python
-* Libraries Used: Pandas, Seaborn, Scipy
-5. [Data Wrangling Hospital Patients](https://github.com/Sando1/udacity-data-analyst/tree/master/data_wrangling_case_study)
-* Language : Python
-* Libraries Used: Numpy, Pandas, Matplotlib
-6. [Explolatory Data Analysis Case Study](https://github.com/Sando1/udacity-data-analyst/tree/master/eda_r)
-* Language : R
-* Libraries Used: ggplot2, tidyverse and gridextra
